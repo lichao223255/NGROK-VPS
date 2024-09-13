@@ -1,0 +1,25 @@
+name: 'tmate-ubuntu'
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'Choose tmate or ngrok mode'
+        required: false
+        default: 'tmate'
+
+jobs:
+  ssh-debug:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2  # 检出你的代码仓库
+
+      - name: Choose mode tmate (ubuntu)
+        run: |
+          MODE=${{ github.event.inputs.mode }}
+          bash ./${MODE}2actions.sh  # 使用相对路径执行脚本
+        shell: bash
+        
+      - name: Sleep
+        run: sleep 6h
